@@ -1,5 +1,5 @@
 # IQpuzzler
-Finds all solutions for IQ Puzzler game (https://www.smartgames.eu/uk/one-player-games/iq-puzzler-pro) by backtracking algorithm, implemented in C++. There are three versions of the game:
+Finds all solutions for IQ Puzzler game (https://www.smartgames.eu/uk/one-player-games/iq-puzzler-pro) with backtracking algorithm, implemented in C++. There are three versions of the game:
 <ul>
   <li>IQpuzzler_rect solves the 2D 11x5 rectangular board.</li>
   <li>IQpuzzler_diag solves the 2D diagonal arrangement.</li>
