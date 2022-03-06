@@ -1,4 +1,7 @@
 // Finds all solutions for IQ Puzzler 5x11 board by brute force algorithm (backtracking).
+// Part definitions and orientations are read from text file "orig.2di"
+// or from filename.3di, where filename is defined in command line argument.
+// Creates Logfile "orig.2do"  or filename.2do with solutions and timestamps (parts are represented as A,B,C,...).
 // Acceleration by identification of small isolated fields (1x1,2x1,3x1,2x2).
 // Prints solutions to terminal window and visualizes current search.
 //

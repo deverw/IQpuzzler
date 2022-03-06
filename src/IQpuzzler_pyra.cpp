@@ -1,7 +1,7 @@
 // Finds all solutions for IQ Puzzler 3D pyramid by brute force algorithm (backtracking).
-// Part definitions and orientations are read from text file "original.3di"
+// Part definitions and orientations are read from text file "orig.3di"
 // or from filename.3di, where filename is defined in command line argument.
-// Creates Logfile "original.3do"  or filename.3do with solutions and timestamps (parts are represented as A,B,C,...).
+// Creates Logfile "orig.3do"  or filename.3do with solutions and timestamps (parts are represented as A,B,C,...).
 // Visualization of current search and solutions are printed to terminal window.
 // The search is accelerated (factor ~10) by identification of isolated cavities before going into new recursions.
 //
