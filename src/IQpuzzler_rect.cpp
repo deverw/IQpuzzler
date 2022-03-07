@@ -6,7 +6,7 @@
 // Prints solutions to terminal window and visualizes current search.
 //
 // Written by Stefan Abendroth (sab@ab-solut.com)
-// Last update: 03/06/2022
+// Last update: 03/07/2022
 
 #include "IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
 
@@ -217,8 +217,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        inputfile="original.2di";
-        outputfile="original_rect.2do";
+        inputfile="orig.2di";
+        outputfile="orig_rect.2do";
     }
 
     // read parts from input file

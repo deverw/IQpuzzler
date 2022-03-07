@@ -6,7 +6,7 @@
 // The search is accelerated (factor ~10) by identification of isolated cavities before going into new recursions.
 //
 // Written by Stefan Abendroth (sab@ab-solut.com)
-// Last update: 03/06/2022
+// Last update: 03/07/2022
 
 #include "IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
 
@@ -232,8 +232,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        inputfile="original.3di";
-        outputfile="original_pyra.3do";
+        inputfile="orig.3di";
+        outputfile="orig_pyra.3do";
     }
 
     // read parts from input file
