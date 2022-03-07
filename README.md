@@ -26,7 +26,7 @@ The search algorithm is accelerated by identification of isolated cavities befor
 With the original game configuration, 1.082.785 solutions have been found for the 2D rectangular version, and 4.360 solutions for the 3D pyramid.
 So far, no solutions have been found for the 3D pyramid using configurations with 11 parts (only <code>cross</code> and <code>long</code> have been tested).
 
-Start:<p>
+Start (with some examples for different games and configurations):<p>
 <code>
   git clone https://github.com/deverw/IQpuzzler<p>
   cd IQpuzzler<p>
@@ -34,6 +34,8 @@ Start:<p>
   cd bin<p>
   ./IQpuzzler_rect<p>
   ./IQpuzzler_rect cross<p>
+  ./IQpuzzler_diag<p>
+  ./IQpuzzler_diag long<p>
   ./IQpuzzler_pyra
  </code><p>
  ...
