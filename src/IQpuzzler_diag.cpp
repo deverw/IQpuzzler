@@ -169,16 +169,27 @@ bool find_position(uint8_t part_number)
                     }
                     cout<<flush;
                     
-                    if (part_number==12)    // all parts on board? -> Heureka!
+                    if (part_number==partcount)    // all parts on board? -> Heureka!
                     {
+                        elapsed=chrono::steady_clock::now();    // measure time
                         solutions++;
                         // print solution in terminal
                         cout<<"\033[0;0m";         // reset colors
                         cout<<endl<<"Solution "<<solutions<<endl;
                         for (uint8_t y=0; y<10; y++)
-                        {
                             cout<<endl;    // print empty lines to scroll up solution
+                        // write solution and time stamp to log file
+                        logfile<<"Solution "<<to_string(solutions)<<" ("<<chrono::duration_cast<chrono::seconds>(elapsed - start).count()<<"s)"<<endl;
+                        for (uint8_t y=1; y<10; y++)
+                        {
+                            for (uint8_t x=1; x<10; x++)
+                                if (board[y][x]<16)
+                                    logfile<<(char)(board[y][x]+64);     // convert 1 to A, 2 to B, ... , 12 to L
+                                else
+                                    logfile<<" ";                        // margin as empty spaces
+                            logfile<<endl;
                         }
+                        logfile<<endl;
                     }                          
                     else                   // try to find position for next part -> this creates many recursions
                     {
@@ -210,12 +221,12 @@ int main(int argc, char *argv[])
         inputfile=argv[1];
         inputfile+=".2di";
         outputfile=argv[1];
-        outputfile+="_rect.2do";
+        outputfile+="_diag.2do";
     }
     else
     {
         inputfile="orig.2di";
-        outputfile="orig_rect.2do";
+        outputfile="orig_diag.2do";
     }
 
     // read parts from input file
