@@ -15,7 +15,7 @@ Thus, the text in the file can also be used directly in Python or C++ (replace <
 No checks are performed to verify correctness of the data (except counting the number of parts).
 Wrong data or format will lead to undefined behaviour of the read functions or the solution algorithm.
 Characters other than <code>[</code> (begin of list), <code>]</code> (end of list), <code>,</code> (separator) or single digits will be ignored and can be used for comments.
-Input files can be created automatically with the provided MATLAB / OCTAVE tool for different game configurations (e.g. original IQpuzzlerPRO game).
+Input files can be created automatically with the provided MATLAB / OCTAVE tool (see folder <code>pre-processing</code>) for different game configurations (e.g. original IQpuzzlerPRO game).
 
 Symmetric or rotated solutions can be avoided by reducing the orientations of a particular part.
 
