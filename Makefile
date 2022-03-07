@@ -8,18 +8,20 @@ BIN=bin
 SRC=src
 INCLUDE=include
 
-SRCS=IQpuzzler_diag.cpp IQpuzzler_read_input.cpp
-OBJS=$(subst .cpp,.o,$(SRCS))
+RECT=IQpuzzler_rect
+DIAG=IQpuzzler_diag
+PYRA=IQpuzzler_pyra
+READ=IQpuzzler_read_input.cpp
 
-all: $(BIN)/IQpuzzler_rect $(BIN)/IQpuzzler_diag $(BIN)/IQpuzzler_pyra
+all: $(BIN)/$(RECT) $(BIN)/$(DIAG) $(BIN)/$(PYRA)
 
-$(BIN)/IQpuzzler_diag: $(SRC)/IQpuzzler_diag.cpp $(SRC)/IQpuzzler_read_input.cpp
+$(BIN)/$(RECT): $(SRC)/$(RECT).cpp $(SRC)/$(READ)
 	$(CXX) $(LDFLAGS) -I$(INCLUDE) $^ -o $@
 
-$(BIN)/IQpuzzler_rect: $(SRC)/IQpuzzler_rect.cpp $(SRC)/IQpuzzler_read_input.cpp
+$(BIN)/$(DIAG): $(SRC)/$(DIAG).cpp $(SRC)/$(READ)
 	$(CXX) $(LDFLAGS) -I$(INCLUDE) $^ -o $@
 
-$(BIN)/IQpuzzler_pyra: $(SRC)/IQpuzzler_pyra.cpp $(SRC)/IQpuzzler_read_input.cpp
+$(BIN)/$(PYRA): $(SRC)/$(PYRA).cpp $(SRC)/$(READ)
 	$(CXX) $(LDFLAGS) -I$(INCLUDE) $^ -o $@	
 
 clean:
