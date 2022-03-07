@@ -5,6 +5,8 @@ Finds all solutions for IQ Puzzler game (https://www.smartgames.eu/uk/one-player
   <li><code>IQpuzzler_diag</code> solves the 2D diagonal arrangement.</li>
   <li><code>IQpuzzler_pyra</code> solves the 3D pyramid.</li>
 </ul>
+<img src="img/rect.jpg" alt="rectangular board">
+<img src="img/diag_pyra.jpg" alt="diagonal board and pyramid">
 Part definitions and orientations are read from a text file <code> *.2di</code> (for the 2D games) or <code> *.3di</code> (for the 3D game) which has to be located in the same folder as the executable (e.g. in the <code>bin</code> folder).
 
 The input filename (without extension) is provided in the command line argument. If no argument is provided, <code>orig</code> is used as default input file, using the 12 parts from the original game. Besides <code>orig</code>, some other configurations with 11 parts (<code>cross</code>, <code>long</code>) are provided. 
