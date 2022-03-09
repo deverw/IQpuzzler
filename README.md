@@ -25,7 +25,7 @@ As output, the program creates a text file <code> *.2do</code> (for the 2D games
 A real time visualization of the current search and identified solutions is printed to the terminal window.
 The search algorithm is accelerated by identification of isolated cavities before going into new recursions. For the 3D puzzle, this reduces execution time by 90%, without losing any solutions.
 
-With the original game configuration, 1.082.785 solutions have been found for the 2D rectangular board, 344.100 solutions for the 2D diagonal board, and 4.360 solutions for the 3D pyramid. Symmetric or rotated solutions have not been counted by reducing symmetric or rotated orientations of single parts.
+With the original game configuration, <b>1.082.785</b> solutions have been found for the 2D rectangular board, <b>344.100</b> solutions for the 2D diagonal board, and <b>4.360</b> solutions for the 3D pyramid. Symmetric or rotated solutions have not been counted by reducing symmetric or rotated orientations of single parts.
 So far, no solutions have been found for the 3D pyramid using configurations with 11 parts (only <code>cross</code> and <code>long</code> have been tested).
 
 Start (with some examples for different games and configurations):<pre><code>
