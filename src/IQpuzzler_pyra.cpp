@@ -6,7 +6,7 @@
 // The search is accelerated (factor ~10) by identification of isolated cavities before going into new recursions.
 //
 // Written by Stefan Abendroth (sab@ab-solut.com)
-// Last update: 03/07/2022
+// Last update: 03/09/2022
 
 #include "IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
 
@@ -176,14 +176,7 @@ bool find_position(uint8_t part_number)
                                     cout<<"\033[" << y/2+w.ws_row-5 << ";" << 12*z+x-13 << "H  ";
                                 }
                         // try to find position for next part -> this creates many recursions
-                        if (part_number<12)
-                        {
-                            if (!find_position(part_number+1))
-                            {
-                                fit=false;
-                            }    
-                        }                          
-                        else // all parts on board? -> Heureka!
+                        if (part_number==partcount)  // all parts on board? -> Heureka!
                         {
                             elapsed=chrono::steady_clock::now();    // measure time
                             solutions++;                            // count solutions
@@ -202,6 +195,13 @@ bool find_position(uint8_t part_number)
                                     logfile<<endl;
                                 }
                             logfile<<endl;
+                        }                          
+                        else
+                        {
+                            if (!find_position(part_number+1))
+                            {
+                                fit=false;
+                            }    
                         }
                         // remove part from board board
                         for (uint8_t dot=0; dot<part[part_number][orientation].size(); dot++)
