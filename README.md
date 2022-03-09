@@ -26,7 +26,7 @@ A real time visualization of the current search and identified solutions is prin
 The search algorithm is accelerated by identification of isolated cavities before going into new recursions. For the 3D puzzle, this reduces execution time by 90%, without losing any solutions.
 
 With the original game configuration, <b>1.082.785</b> solutions have been found for the 2D rectangular board, <b>344.100</b> solutions for the 2D diagonal board, and <b>4.360</b> solutions for the 3D pyramid. Symmetric or rotated solutions have not been counted by reducing symmetric or rotated orientations of single parts.
-So far, no solutions have been found for the 3D pyramid using configurations with 11 parts (only <code>cross</code> and <code>long</code> have been tested).
+No solutions have been found for the 3D pyramid using configurations with 11 parts (e.g. <code>cross</code>, <code>long</code>).
 
 Start (with some examples for different games and configurations):<pre><code>
   git clone https://github.com/deverw/IQpuzzler
