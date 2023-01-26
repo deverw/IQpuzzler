@@ -5,29 +5,16 @@
 // Written by Stefan Abendroth (sab@ab-solut.com)
 // Last update: 01/26/2023
 
-#include "IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
+#include "../include/IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
 
 constexpr auto BOARD_ROWS = 5;
 constexpr auto BOARD_COLUMNS = 11;
-constexpr auto PARTCOUNT = 12;
 
+vector <vector <vector <vector <uint8_t> > > > part;
+uint8_t partcount;
 vector <vector <uint8_t> > X;
 vector <size_t> solution;
 vector <vector <size_t> > all_solutions;
-
-/*
-void show_solution()
-{
-    cout << "Solution " << to_string(all_solutions.size()) << endl;
-    for (size_t i = 0; i < solution.size(); i++)
-    {
-        for (size_t j=0; j<X[0].size();j++)
-            cout << to_string(X[solution[i]][j]) << " ";
-        cout << endl;
-    }
-    cout << endl;
-}
-*/
 
 void show_solution()
 {
@@ -36,44 +23,24 @@ void show_solution()
         for (size_t j=0; j < board.size(); j++)
             board[j] += X[solution[i]][j];
     cout << "Solution " << to_string(all_solutions.size()) << ":";
-    for (size_t j = 0; j < PARTCOUNT; j++)
+    for (size_t j = 0; j < partcount; j++)
         cout << " " << to_string(board[j]);
     cout << endl;
     for (size_t i = 0; i < BOARD_ROWS; i++)
     {
         for (size_t j = 0; j < BOARD_COLUMNS; j++)
-            cout << to_string(board[PARTCOUNT+j*BOARD_ROWS+i]) << " ";
+            cout << to_string(board[partcount+j*BOARD_ROWS+i]) << " ";
         cout << endl;
     }
     cout << endl;
 }
-
-/*
-void show_X()
-{
-    vector <uint8_t> board(X[0].size(), 0);
-    for (size_t n = 0; n < X.size(); n++)
-    {
-        cout << n << ": ";
-        for (size_t j = 0; j < PARTCOUNT; j++)
-            cout << " " << to_string(X[n][j]);
-        cout << endl;
-        for (size_t i = 0; i < BOARD_ROWS; i++)
-        {
-            for (size_t j = 0; j < BOARD_COLUMNS; j++)
-                cout << (char)(X[n][PARTCOUNT + j * BOARD_ROWS + i]+65) << " ";
-            cout << endl;
-        }
-    }
-}
-*/
 
 void prepareX(vector <vector <vector <vector <uint8_t> > > > part)
 // Prepare matrix for Knuth's algorithm X.
 // Each row of X represents a single part with a possible orientation and position on the board.
 // Algorithm X will identify those sets of rows that can be combined to a completely filled column (=solution of exact coverage problem).
 {
-    size_t xpos, ypos, partcount = part.size();
+    size_t xpos, ypos;
     vector <uint8_t> Xrow(partcount + BOARD_ROWS * BOARD_COLUMNS, 0);
     bool fit;
 
@@ -162,14 +129,14 @@ void knuth(vector < vector <uint8_t> > A , vector <size_t> p)
                 }      
     }
     // if A is empty, a solution is found
-    else if (solution.size()==PARTCOUNT)
+    else if (solution.size()==partcount)
     {
         all_solutions.push_back(solution);
         show_solution();
     }
 }
 
-uint32_t main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
     string inputfile, outputfile;
 
@@ -185,17 +152,10 @@ uint32_t main(int argc, char* argv[])
         inputfile = "orig.2di";
         outputfile = "orig_rect.2do";
     }
-
-    prepareX(read_input(inputfile));
-    /*
-    X = { {0,0,0,0,1,1,1,1},{1,1,1,1,0,0,0,0},{0,0,2,2,0,0,2,2},{2,2,0,0,2,2,0,0},{0,3,0,3,0,3,0,3},{3,0,3,0,3,0,3,0} };
-    X = { {1,0,0,1,1,1,1,0,0,0},{1,0,0,0,1,1,1,1,0,0},{1,0,0,0,0,1,1,1,1,0},{1,0,0,0,0,0,1,1,1,1},
-         {0,1,0,2,2,0,0,0,0,0},{0,1,0,0,0,2,2,0,0,0},{0,1,0,0,0,0,0,2,2,0},{0,1,0,0,0,0,0,0,2,2},
-         {0,0,1,3,0,0,0,0,0,0},{0,0,1,0,0,3,0,0,0,0},{0,0,1,0,0,0,0,3,0,0},{0,0,1,0,0,0,0,0,0,3} };
-
-    show_X();
-    */
     
+    partcount=read_input(inputfile, part);
+    prepareX(part);
+
     vector <size_t> p(X.size());
     for (size_t i = 0; i < p.size(); i++)
         p[i] = i;
