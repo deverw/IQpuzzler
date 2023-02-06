@@ -5,16 +5,30 @@
 // Written by Stefan Abendroth (sab@ab-solut.com)
 // Last update: 01/26/2023
 
-#include "../include/IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
+#include "IQpuzzler_read_input.hpp"     // read part shapes and orientations from input file
 
 constexpr auto BOARD_ROWS = 5;
 constexpr auto BOARD_COLUMNS = 11;
 
 vector <vector <vector <vector <uint8_t> > > > part;
-uint8_t partcount;
+size_t partcount;
 vector <vector <uint8_t> > X;
 vector <size_t> solution;
 vector <vector <size_t> > all_solutions;
+
+/*
+void show_solution()
+{
+    cout << "Solution " << to_string(all_solutions.size()) << endl;
+    for (size_t i = 0; i < solution.size(); i++)
+    {
+        for (size_t j=0; j<X[0].size();j++)
+            cout << to_string(X[solution[i]][j]) << " ";
+        cout << endl;
+    }
+    cout << endl;
+}
+*/
 
 void show_solution()
 {
@@ -34,6 +48,26 @@ void show_solution()
     }
     cout << endl;
 }
+
+/*
+void show_X()
+{
+    vector <uint8_t> board(X[0].size(), 0);
+    for (size_t n = 0; n < X.size(); n++)
+    {
+        cout << n << ": ";
+        for (size_t j = 0; j < partcount; j++)
+            cout << " " << to_string(X[n][j]);
+        cout << endl;
+        for (size_t i = 0; i < BOARD_ROWS; i++)
+        {
+            for (size_t j = 0; j < BOARD_COLUMNS; j++)
+                cout << (char)(X[n][partcount + j * BOARD_ROWS + i]+65) << " ";
+            cout << endl;
+        }
+    }
+}
+*/
 
 void prepareX(vector <vector <vector <vector <uint8_t> > > > part)
 // Prepare matrix for Knuth's algorithm X.
@@ -58,7 +92,7 @@ void prepareX(vector <vector <vector <vector <uint8_t> > > > part)
                         xpos = col + part[part_number][orientation][dot][0];
                         ypos = row + part[part_number][orientation][dot][1];
                         if (xpos < BOARD_COLUMNS && ypos < BOARD_ROWS)
-                            Xrow[partcount + xpos*BOARD_ROWS + ypos] = part_number+1;
+                            Xrow[partcount + xpos*BOARD_ROWS + ypos] = (uint8_t)(part_number+1);
                         else
                             fit = false;
                     }
@@ -76,7 +110,7 @@ void knuth(vector < vector <uint8_t> > A , vector <size_t> p)
 // Matrix 'A' stores remaining coverage matrix. Each row represents a way to place a part on the board.
 // Vector 'p' stores row numbers of original coverage matrix X.
 {
-    if (A.size())
+    if (A.size() && A[0].size())
     {
         // choose column with minimum number of entries
         // (this will minimize the number of recursions)
@@ -100,7 +134,6 @@ void knuth(vector < vector <uint8_t> > A , vector <size_t> p)
                 {
                     // include row in partial solution
                     solution.push_back(p[row]);
-                    // show_solution();
                     vector < vector <uint8_t> > Ar = A;
                     vector <size_t> pr = p, del_rows(A.size(), 0);
                     // for each j such that A[row][j]>0
@@ -116,6 +149,7 @@ void knuth(vector < vector <uint8_t> > A , vector <size_t> p)
                                     // mark row for deletion
                                     del_rows[i - 1] = 1;
                         }
+                    del_rows[row] = 0;  // keep solution row
                     // delete rows from A (and p)
                     for (size_t r = Ar.size(); r > 0 ; r--)
                         if (del_rows[r-1])
@@ -129,7 +163,7 @@ void knuth(vector < vector <uint8_t> > A , vector <size_t> p)
                 }      
     }
     // if A is empty, a solution is found
-    else if (solution.size()==partcount)
+    else
     {
         all_solutions.push_back(solution);
         show_solution();
@@ -152,10 +186,19 @@ int main(int argc, char* argv[])
         inputfile = "orig.2di";
         outputfile = "orig_rect.2do";
     }
-    
-    partcount=read_input(inputfile, part);
+
+    partcount = read_input(inputfile, part);
     prepareX(part);
 
+    /*
+    X = { {0,0,0,0,1,1,1,1},{1,1,1,1,0,0,0,0},{0,0,2,2,0,0,2,2},{2,2,0,0,2,2,0,0},{0,3,0,3,0,3,0,3},{3,0,3,0,3,0,3,0} };
+    X = { {1,0,0,1,1,1,1,0,0,0},{1,0,0,0,1,1,1,1,0,0},{1,0,0,0,0,1,1,1,1,0},{1,0,0,0,0,0,1,1,1,1},
+         {0,1,0,2,2,0,0,0,0,0},{0,1,0,0,0,2,2,0,0,0},{0,1,0,0,0,0,0,2,2,0},{0,1,0,0,0,0,0,0,2,2},
+         {0,0,1,3,0,0,0,0,0,0},{0,0,1,0,0,3,0,0,0,0},{0,0,1,0,0,0,0,3,0,0},{0,0,1,0,0,0,0,0,0,3} };
+
+    show_X();
+    */
+    
     vector <size_t> p(X.size());
     for (size_t i = 0; i < p.size(); i++)
         p[i] = i;
